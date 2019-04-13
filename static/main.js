@@ -61,9 +61,10 @@ $(document).ready(function () {
                 OrganizationName: currentSelected
             },
         }).done(function () {
+            //delete from table if succesfull
             table.row('.selected').remove().draw(false);
         });
-        //delete from table if succesfull
+
 
     });
 
@@ -250,8 +251,6 @@ $(document).ready(function () {
     });
 
     $('#editContactButton').click(function () {
-
-
         //ajax call fill the details Modal
         $.ajax({
             url: "/getContactDetails",

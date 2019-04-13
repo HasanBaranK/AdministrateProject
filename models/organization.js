@@ -16,8 +16,6 @@ module.exports = {
     },
 
     addOrganization: function (db,id, OrganizationName, Phone, Email, Address, City, Country, PostCode) {
-        //fake overloading
-        console.log(id);
         if(id.trim() === ""){
             return db.run(
                 `INSERT OR REPLACE INTO organizationTable (OrganizationName ,Phone ,Email ,Address ,City ,Country ,PostCode)
@@ -52,8 +50,6 @@ module.exports = {
                 if (err) {
                     return console.error(err.message);
                 }
-                console.log(row.Id);
-                console.log("Found the id")
                 return resolve(row.Id);
 
             })
