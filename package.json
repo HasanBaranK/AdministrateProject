@@ -2,8 +2,9 @@
   "name": "AdministrateProject",
   "version": "1.0.0",
   "dependencies": {
+    "body-parser": "latest",
     "express": "^4.16.4",
-    "sqlite3": "^4.0.6",
-    "body-parser": "latest"
+    "serve-favicon": "^2.5.0",
+    "sqlite3": "^4.0.6"
   }
 }

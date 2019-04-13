@@ -16,9 +16,10 @@ $(document).ready(function () {
             type: "POST",
             data: {}
         },
-        columns: [{
-            "data": "organizationName"
-        },],
+        columns: [
+            {"data": "organizationName"},
+
+        ],
 
         responsive: true,
         select: 'single'
@@ -31,13 +32,19 @@ $(document).ready(function () {
             enableDisableButtons(true);
         } else {
             //enable buttons
-            enableDisableButtons(false);
-            let $columns = $(this).find('td');
 
-            if (inContacts) {
-                currentSelected = $columns[1].innerHTML;
-            } else {
-                currentSelected = $columns[0].innerHTML;
+            let $columns = $(this).find('td');
+            try {
+                if (inContacts) {
+                    currentSelected = $columns[1].innerHTML;
+
+                } else {
+                    currentSelected = $columns[0].innerHTML;
+                }
+                enableDisableButtons(false);
+                console.log(currentSelected);
+            } catch {
+                currentSelected = "";
             }
         }
     });
@@ -98,6 +105,7 @@ $(document).ready(function () {
         }).done(function (response) {
             let obj = JSON.parse(JSON.stringify(response));
             $("#addOrganizationTitle").text("Edit " + obj.data[0].organizationName);
+            $("#OrganizationId").val(obj.data[0].id);
             $("#OrganizationName").val(obj.data[0].organizationName);
             $("#Phone").val(obj.data[0].Phone);
             $("#Email").val(obj.data[0].Email);
@@ -115,6 +123,7 @@ $(document).ready(function () {
         //ajax call fill the details Modal
         $("#addOrganizationTitle").text("Add Organization");
 
+        $("#OrganizationId").val("");
         $("#OrganizationName").val("");
         $("#Phone").val("");
         $("#Email").val("");
@@ -128,6 +137,17 @@ $(document).ready(function () {
     $('#addContactButton').click(function () {
         $("#organizationIdContact").val(organizationId);
         $("#idContact").val("addContact");
+        $("#addContactTitle").text("Add Contact to " + currentOrganisation);
+
+        $("#OrganizationId").val("");
+        $("#NameContact").val("");
+        $("#SurnameContact").val("");
+        $("#PhoneContact").val("");
+        $("#EmailContact").val("");
+        $("#AddressContact").val("");
+        $("#CityContact").val("");
+        $("#CountryContact").val("");
+        $("#PostCodeContact").val("");
     });
 
     $('#goToContactsButton').click(function () {
@@ -176,6 +196,25 @@ $(document).ready(function () {
     //---------------------------------------------------------------------------
     //                             Contact Buttons
     //---------------------------------------------------------------------------
+    $('#contactForm').submit(function (e) {
+        //prevent submitting through form
+        e.preventDefault();
+
+        let name = $("#NameContact").val();
+        if (name.trim() !== "") {
+            $.ajax({
+                url: '/addContact',
+                type: 'post',
+                data: $('#contactForm').serialize(),
+                success: function () {
+                    mainTable.DataTable().ajax.reload();
+                }
+            });
+            $("#closeContact").click()
+
+        }
+    });
+
     $('#goBackButton').click(function () {
         location.reload();
     });
@@ -211,8 +250,9 @@ $(document).ready(function () {
     });
 
     $('#editContactButton').click(function () {
+
+
         //ajax call fill the details Modal
-        console.log("hello");
         $.ajax({
             url: "/getContactDetails",
             type: 'POST',
@@ -222,6 +262,7 @@ $(document).ready(function () {
         }).done(function (response) {
             let obj = JSON.parse(JSON.stringify(response));
             console.log(obj.data[0].Name);
+            $("#addContactTitle").text("Edit " + obj.data[0].Name + " " + obj.data[0].Surname);
             $("#NameContact").val(obj.data[0].Name);
             $("#idContact").val(obj.data[0].id);
             $("#organizationIdContact").val(obj.data[0].organizationId);
@@ -272,17 +313,6 @@ $(document).ready(function () {
         }).done(function (response) {
             organizationId = response.id;
 
-        });
-    }
-
-    function addContact() {
-        $.ajax({
-            url: '/addContact',
-            type: 'post',
-            data: $('#contactForm').serialize(),
-            success: function () {
-                mainTable.DataTable().ajax.reload();
-            }
         });
     }
 

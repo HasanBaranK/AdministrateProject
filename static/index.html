@@ -123,6 +123,8 @@
             </div>
             <div class="modal-body">
                 <form action="/addOrganization" method="post" class="needs-validation" novalidate>
+                    <input type="text" style="display: none" class="form-control" name="id" id="OrganizationId" placeholder="id"
+                           value="">
                     <div class="form-row">
                         <div class="col-md-12 mb-12">
                             <label>Organization</label>
@@ -204,18 +206,18 @@
     </div>
 </div>
 <!--Create Contact-->
-<div class="modal fade" id="addContact" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+<div class="modal fade" id="addContact" tabindex="-1" role="dialog" id="contactModal" aria-labelledby="exampleModalCenterTitle"
      aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLongTitle2">Add Contact to</h5>
+                <h5 class="modal-title" id="addContactTitle">Add Contact to</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
-                <form id="contactForm" action="/addContact" method="post" class="needs-validation" novalidate>
+                <form id="contactForm" action="" method="" class="needs-validation" novalidate>
                     <input type="text" style="display:none" class="form-control" name="id" id="idContact"
                            placeholder="id" required>
                     <input type="text" style="display:none" class="form-control" name="OrganizationId"
@@ -278,8 +280,8 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button class="btn btn-primary" data-dismiss="modal" onclick="addContact()">Submit form</button>
+                        <button type="button" id="closeContact" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button id="addContactSubmitButton" class="btn btn-primary" type="submit">Submit form</button>
                     </div>
                 </form>
 

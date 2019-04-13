@@ -15,11 +15,20 @@ module.exports = {
         return db.run(sql);
     },
 
-    addOrganization: function (db, OrganizationName, Phone, Email, Address, City, Country, PostCode) {
-        return db.run(
-            `INSERT OR REPLACE INTO organizationTable (OrganizationName ,Phone ,Email ,Address ,City ,Country ,PostCode)
+    addOrganization: function (db,id, OrganizationName, Phone, Email, Address, City, Country, PostCode) {
+        //fake overloading
+        console.log(id);
+        if(id.trim() === ""){
+            return db.run(
+                `INSERT OR REPLACE INTO organizationTable (OrganizationName ,Phone ,Email ,Address ,City ,Country ,PostCode)
           VALUES (?, ?, ?, ?, ?, ?, ?)`,
-            [OrganizationName, Phone, Email, Address, City, Country, PostCode])
+                [OrganizationName, Phone, Email, Address, City, Country, PostCode])
+        }else {
+            return db.run(
+                `INSERT OR REPLACE INTO organizationTable (id,OrganizationName ,Phone ,Email ,Address ,City ,Country ,PostCode)
+          VALUES (?, ?, ?, ?, ?, ?, ?, ?)`,
+                [id, OrganizationName, Phone, Email, Address, City, Country, PostCode])
+        }
     },
 
     deleteOrganization: function (db, OrganizationName) {
@@ -91,7 +100,7 @@ module.exports = {
         obj.data = [];
         return new Promise(function (resolve, reject) {
             // Async function expression
-            let sql = `SELECT OrganizationName organizationName, Phone phone, Email email, Address address, City city, Country country, PostCode postCode FROM organizationTable`;
+            let sql = `SELECT id Id, OrganizationName organizationName, Phone phone, Email email, Address address, City city, Country country, PostCode postCode FROM organizationTable`;
 
             db.all(sql, [], (err, rows) => {
                 if (err) {
@@ -99,6 +108,7 @@ module.exports = {
                 }
                 rows.forEach((row) => {
                     var contact = {};
+                    contact.id = row.Id;
                     contact.organizationName = row.organizationName;
                     contact.Phone = row.phone;
                     contact.Email = row.email;
@@ -119,7 +129,7 @@ module.exports = {
         obj.data = [];
         return new Promise(function (resolve, reject) {
             // Async function expression
-            let sql = `SELECT OrganizationName organizationName, Phone phone, Email email, Address address, City city, Country country, PostCode postCode FROM organizationTable WHERE OrganizationName = ?`;
+            let sql = `SELECT id Id, OrganizationName organizationName, Phone phone, Email email, Address address, City city, Country country, PostCode postCode FROM organizationTable WHERE OrganizationName = ?`;
 
             db.all(sql, [name], (err, rows) => {
                 if (err) {
@@ -127,6 +137,7 @@ module.exports = {
                 }
                 rows.forEach((row) => {
                     let contact = {};
+                    contact.id = row.Id;
                     contact.organizationName = row.organizationName;
                     contact.Phone = row.phone;
                     contact.Email = row.email;
