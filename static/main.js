@@ -273,7 +273,6 @@ function addContact() {
     type: 'post',
     data: $('#contactForm').serialize(),
     success: function() {
-      //alert("worked");
       $('#organizationTable').DataTable().ajax.reload();
     }
   });

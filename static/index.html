@@ -2,280 +2,310 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <title>Address Book</title>
-  <!--<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"-->
-  <!--integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">-->
-  <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.css">
-  <!--<link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css">-->
-  <script src="main.js"></script>
-  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/dt-1.10.18/b-1.5.6/b-flash-1.5.6/b-html5-1.5.6/r-2.2.2/sl-1.3.0/datatables.min.css" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Address Book</title>
 
-  <script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.10.18/b-1.5.6/b-flash-1.5.6/b-html5-1.5.6/r-2.2.2/sl-1.3.0/datatables.min.js"></script>
-  <!--<script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
-  <script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"></script>-->
+    //Import JQuery
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"
+            integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+    //Import Bootsrap
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+            integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+            crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+            integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+            crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.css">
+    //Import DataTables
+    <link rel="stylesheet" type="text/css"
+          href="https://cdn.datatables.net/v/bs4/dt-1.10.18/b-1.5.6/b-flash-1.5.6/b-html5-1.5.6/r-2.2.2/sl-1.3.0/datatables.min.css"/>
+
+    <script type="text/javascript"
+            src="https://cdn.datatables.net/v/bs4/dt-1.10.18/b-1.5.6/b-flash-1.5.6/b-html5-1.5.6/r-2.2.2/sl-1.3.0/datatables.min.js"></script>
+
+    <script src="main.js"></script>
 </head>
 
 <body>
-  <!--Nav-Bar-->
-
-
-
-  <!--Search-->
-  <!--as a list which will list maximum three-->
-  <div class="p-3 px-md-4 mb-3 bg-white border-bottom shadow-sm mx-auto text-center">
+<!--as a list which will list maximum three-->
+<div class="p-3 px-md-4 mb-3 bg-white border-bottom shadow-sm mx-auto text-center">
     <h1>Address Book</h1>
-  </div>
+</div>
 
-  <!--Main-->
-  <div class=" px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
+<!--Main-->
+<div class=" px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
     <div class="row">
-      <div class="col-sm-12">
-        <div class="card">
-          <div class="card-header">
-            <h5 id="mainTitle" class="card-title">Organizations</h5>
+        <div class="col-sm-12">
+            <div class="card">
+                <div class="card-header">
+                    <h5 id="mainTitle" class="card-title">Organizations</h5>
 
-          </div>
-          <div class="card-body">
-            <div id="OrganizationButtons">
-              <button id="deleteButton" class="btn btn-outline-danger" disabled>Delete</button>
-              <button id="editButton" class="btn btn-outline-dark" data-toggle="modal" data-target="#addOrganization" disabled>Edit</button>
-              <button id="detailsButton" class="btn btn-outline-info" data-toggle="modal" data-target="#detailsModal" disabled>Details</button>
-              <button id="goToContactsButton" class="btn btn-outline-success" disabled>Go to Contacts</button>
-              <button id="addOrganizationButton" class="btn btn-outline-primary" data-toggle="modal" data-target="#addOrganization">Add Organization</button>
-
-            </div>
-            <div id="ContactsButtons" style="display: none">
-              <button id="deleteContactButton" class="btn btn-outline-danger" disabled>Delete</button>
-              <button id="editContactButton" class="btn btn-outline-dark" data-toggle="modal" data-target="#addContact" disabled>Edit</button>
-              <button id="detailsContactButton" class="btn btn-outline-info" data-toggle="modal" data-target="#detailsModal" disabled>Details</button>
-              <button id="goBackButton" class="btn btn-outline-success">Go Back</button>
-              <button id="addContactButton" class="btn btn-outline-primary" data-toggle="modal" data-target="#addContact">Add Contact</button>
-
-            </div>
-            <hr>
-            <table id="organizationTable" class="table table-striped table-bordered" style="width:100%">
-              <thead>
-                <tr>
-                  <th>Name</th>
-                </tr>
-              </thead>
-              <tbody>
-              </tbody>
-              <tfoot>
-                <tr>
-                  <th>Name</th>
-                </tr>
-              </tfoot>
-            </table>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <!--Details-->
-  <div class="modal fade" id="detailsModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="detailsTitle">Details of Organization</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div id="addDetailsHere" class="modal-body">
-
-        </div>
-      </div>
-    </div>
-  </div>
-  <!--Create Organisations-->
-  <div class="modal fade" id="addOrganization" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="addOrganizationTitle">Add Organization</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-          <form action="/addOrganization" method="post" class="needs-validation" novalidate>
-            <div class="form-row">
-              <div class="col-md-12 mb-12">
-                <label for="validationCustom03">Organization</label>
-                <input type="text" class="form-control" name="OrganizationName" id="OrganizationName" placeholder="Organization Name" value="test" required>
-                <div class="invalid-feedback">
-                  Please provide a organization name.
                 </div>
-              </div>
-            </div>
+                <div class="card-body">
+                    <div id="OrganizationButtons">
+                        <button id="deleteButton" class="btn btn-outline-danger" disabled>Delete</button>
+                        <button id="editButton" class="btn btn-outline-dark" data-toggle="modal"
+                                data-target="#addOrganization" disabled>Edit
+                        </button>
+                        <button id="detailsButton" class="btn btn-outline-info" data-toggle="modal"
+                                data-target="#detailsModal" disabled>Details
+                        </button>
+                        <button id="goToContactsButton" class="btn btn-outline-success" disabled>Go to Contacts</button>
+                        <button id="addOrganizationButton" class="btn btn-outline-primary" data-toggle="modal"
+                                data-target="#addOrganization">Add Organization
+                        </button>
 
-            <div class="form-row">
-              <div class="col-md-6 mb-6">
-                <label>Phone</label>
-                <input type="text" class="form-control" name="Phone" id="Phone" placeholder="Phone" value="">
+                    </div>
+                    <div id="ContactsButtons" style="display: none">
+                        <button id="deleteContactButton" class="btn btn-outline-danger" disabled>Delete</button>
+                        <button id="editContactButton" class="btn btn-outline-dark" data-toggle="modal"
+                                data-target="#addContact" disabled>Edit
+                        </button>
+                        <button id="detailsContactButton" class="btn btn-outline-info" data-toggle="modal"
+                                data-target="#detailsModal" disabled>Details
+                        </button>
+                        <button id="goBackButton" class="btn btn-outline-success">Go Back</button>
+                        <button id="addContactButton" class="btn btn-outline-primary" data-toggle="modal"
+                                data-target="#addContact">Add Contact
+                        </button>
 
-              </div>
-              <div class="col-md-6 mb-6">
-                <label>Mail</label>
-                <input type="text" class="form-control" name="Email" id="Email" placeholder="E-mail" value="">
-
-              </div>
-            </div>
-            <div class="form-row">
-              <div class="col-md-12 mb-12">
-                <label>Address</label>
-                <input type="text" class="form-control" name="Address" id="Address" placeholder="Address">
-
-              </div>
-            </div>
-            <div class="form-row">
-              <div class="col-md-6 mb-3">
-                <label>City</label>
-                <input type="text" class="form-control" name="City" id="City" placeholder="City">
-
-              </div>
-              <div class="col-md-3 mb-3">
-                <label>Country</label>
-                <input type="text" class="form-control" name="Country" id="Country" placeholder="Country">
-
-              </div>
-              <div class="col-md-3 mb-3">
-                <label>PostCode</label>
-                <input type="text" class="form-control" name="PostCode" id="PostCode" placeholder="PostCode">
-
-              </div>
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-              <button class="btn btn-primary" type="submit">Submit form</button>
-            </div>
-          </form>
-
-          <script>
-            // Example starter JavaScript for disabling form submissions if there are invalid fields
-            (function() {
-              'use strict';
-              window.addEventListener('load', function() {
-                // Fetch all the forms we want to apply custom Bootstrap validation styles to
-                var forms = document.getElementsByClassName('needs-validation');
-                // Loop over them and prevent submission
-                var validation = Array.prototype.filter.call(forms, function(form) {
-                  form.addEventListener('submit', function(event) {
-                    if (form.checkValidity() === false) {
-                      event.preventDefault();
-                      event.stopPropagation();
-                    }
-                    form.classList.add('was-validated');
-                  }, false);
-                });
-              }, false);
-            })();
-          </script>
-        </div>
-      </div>
-    </div>
-  </div>
-  <!--Create Contact-->
-  <div class="modal fade" id="addContact" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLongTitle2">Add Contact to</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-          <form id="contactForm" action="/addContact" method="post" class="needs-validation" novalidate>
-            <input type="text" style="display:none" class="form-control" name="id" id="idContact" placeholder="id" required>
-            <input type="text" style="display:none" class="form-control" name="OrganizationId" id="organizationIdContact" placeholder="id" required>
-            <div class="form-row">
-              <div class="col-md-6 mb-6">
-                <label>First name</label>
-                <input type="text" class="form-control" name="Name" id="NameContact" placeholder="First name" required>
-                <div class="invalid-feedback">
-                  Please provide a name.
+                    </div>
+                    <hr>
+                    <table id="organizationTable" class="table table-striped table-bordered" style="width:100%">
+                        <thead>
+                        <tr>
+                            <th>Name</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                        <tfoot>
+                        <tr>
+                            <th>Name</th>
+                        </tr>
+                        </tfoot>
+                    </table>
                 </div>
-              </div>
-              <div class="col-md-6 mb-6">
-                <label>Last name</label>
-                <input type="text" class="form-control" name="Surname" id="SurnameContact" placeholder="Last name" value="">
-
-              </div>
             </div>
-            <div class="form-row">
-              <div class="col-md-6 mb-6">
-                <label>Phone</label>
-                <input type="text" class="form-control" name="Phone" id="PhoneContact" placeholder="Phone" value="">
-
-              </div>
-              <div class="col-md-6 mb-6">
-                <label>Mail</label>
-                <input type="text" class="form-control" name="Email" id="EmailContact" placeholder="E-mail" value="">
-
-              </div>
-            </div>
-            <div class="form-row">
-              <div class="col-md-12 mb-12">
-                <label>Address</label>
-                <input type="text" class="form-control" name="Address" id="AddressContact" placeholder="Address">
-
-              </div>
-            </div>
-            <div class="form-row">
-              <div class="col-md-6 mb-3">
-                <label>City</label>
-                <input type="text" class="form-control" name="City" id="CityContact" placeholder="City">
-
-              </div>
-              <div class="col-md-3 mb-3">
-                <label>Country</label>
-                <input type="text" class="form-control" name="Country" id="CountryContact" placeholder="Country">
-
-              </div>
-              <div class="col-md-3 mb-3">
-                <label>PostCode</label>
-                <input type="text" class="form-control" name="PostCode" id="PostCodeContact" placeholder="PostCode">
-
-              </div>
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-              <button class="btn btn-primary" data-dismiss="modal" onclick="addContact()">Submit form</button>
-            </div>
-          </form>
-
-          <script>
-
-            // Example starter JavaScript for disabling form submissions if there are invalid fields
-            (function() {
-              'use strict';
-              window.addEventListener('load', function() {
-                // Fetch all the forms we want to apply custom Bootstrap validation styles to
-                var forms = document.getElementsByClassName('needs-validation');
-                // Loop over them and prevent submission
-                var validation = Array.prototype.filter.call(forms, function(form) {
-                  form.addEventListener('submit', function(event) {
-                    if (form.checkValidity() === false) {
-                      event.preventDefault();
-                      event.stopPropagation();
-                    }
-                    form.classList.add('was-validated');
-                  }, false);
-                });
-              }, false);
-            })();
-          </script>
         </div>
-      </div>
     </div>
-  </div>
+</div>
+<!--Details-->
+<div class="modal fade" id="detailsModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+     aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="detailsTitle">Details of Organization</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div id="addDetailsHere" class="modal-body">
+
+            </div>
+        </div>
+    </div>
+</div>
+<!--Create Organisations-->
+<div class="modal fade" id="addOrganization" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+     aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addOrganizationTitle">Add Organization</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form action="/addOrganization" method="post" class="needs-validation" novalidate>
+                    <div class="form-row">
+                        <div class="col-md-12 mb-12">
+                            <label>Organization</label>
+                            <input type="text" class="form-control" name="OrganizationName" id="OrganizationName"
+                                   placeholder="Organization Name" value="test" required>
+                            <div class="invalid-feedback">
+                                Please provide a organization name.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="col-md-6 mb-6">
+                            <label>Phone</label>
+                            <input type="text" class="form-control" name="Phone" id="Phone" placeholder="Phone"
+                                   value="">
+
+                        </div>
+                        <div class="col-md-6 mb-6">
+                            <label>Mail</label>
+                            <input type="text" class="form-control" name="Email" id="Email" placeholder="E-mail"
+                                   value="">
+
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col-md-12 mb-12">
+                            <label>Address</label>
+                            <input type="text" class="form-control" name="Address" id="Address" placeholder="Address">
+
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col-md-6 mb-3">
+                            <label>City</label>
+                            <input type="text" class="form-control" name="City" id="City" placeholder="City">
+
+                        </div>
+                        <div class="col-md-3 mb-3">
+                            <label>Country</label>
+                            <input type="text" class="form-control" name="Country" id="Country" placeholder="Country">
+
+                        </div>
+                        <div class="col-md-3 mb-3">
+                            <label>PostCode</label>
+                            <input type="text" class="form-control" name="PostCode" id="PostCode"
+                                   placeholder="PostCode">
+
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button class="btn btn-primary" type="submit">Submit form</button>
+                    </div>
+                </form>
+
+                <script>
+                    // Example starter JavaScript for disabling form submissions if there are invalid fields
+                    (function () {
+                        'use strict';
+                        window.addEventListener('load', function () {
+                            // Fetch all the forms we want to apply custom Bootstrap validation styles to
+                            var forms = document.getElementsByClassName('needs-validation');
+                            // Loop over them and prevent submission
+                            var validation = Array.prototype.filter.call(forms, function (form) {
+                                form.addEventListener('submit', function (event) {
+                                    if (form.checkValidity() === false) {
+                                        event.preventDefault();
+                                        event.stopPropagation();
+                                    }
+                                    form.classList.add('was-validated');
+                                }, false);
+                            });
+                        }, false);
+                    })();
+                </script>
+            </div>
+        </div>
+    </div>
+</div>
+<!--Create Contact-->
+<div class="modal fade" id="addContact" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+     aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle2">Add Contact to</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="contactForm" action="/addContact" method="post" class="needs-validation" novalidate>
+                    <input type="text" style="display:none" class="form-control" name="id" id="idContact"
+                           placeholder="id" required>
+                    <input type="text" style="display:none" class="form-control" name="OrganizationId"
+                           id="organizationIdContact" placeholder="id" required>
+                    <div class="form-row">
+                        <div class="col-md-6 mb-6">
+                            <label>First name</label>
+                            <input type="text" class="form-control" name="Name" id="NameContact"
+                                   placeholder="First name" required>
+                            <div class="invalid-feedback">
+                                Please provide a name.
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-6">
+                            <label>Last name</label>
+                            <input type="text" class="form-control" name="Surname" id="SurnameContact"
+                                   placeholder="Last name" value="">
+
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col-md-6 mb-6">
+                            <label>Phone</label>
+                            <input type="text" class="form-control" name="Phone" id="PhoneContact" placeholder="Phone"
+                                   value="">
+
+                        </div>
+                        <div class="col-md-6 mb-6">
+                            <label>Mail</label>
+                            <input type="text" class="form-control" name="Email" id="EmailContact" placeholder="E-mail"
+                                   value="">
+
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col-md-12 mb-12">
+                            <label>Address</label>
+                            <input type="text" class="form-control" name="Address" id="AddressContact"
+                                   placeholder="Address">
+
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col-md-6 mb-3">
+                            <label>City</label>
+                            <input type="text" class="form-control" name="City" id="CityContact" placeholder="City">
+
+                        </div>
+                        <div class="col-md-3 mb-3">
+                            <label>Country</label>
+                            <input type="text" class="form-control" name="Country" id="CountryContact"
+                                   placeholder="Country">
+
+                        </div>
+                        <div class="col-md-3 mb-3">
+                            <label>PostCode</label>
+                            <input type="text" class="form-control" name="PostCode" id="PostCodeContact"
+                                   placeholder="PostCode">
+
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button class="btn btn-primary" data-dismiss="modal" onclick="addContact()">Submit form</button>
+                    </div>
+                </form>
+
+                <script>
+
+                    // Example starter JavaScript for disabling form submissions if there are invalid fields
+                    (function () {
+                        'use strict';
+                        window.addEventListener('load', function () {
+                            // Fetch all the forms we want to apply custom Bootstrap validation styles to
+                            var forms = document.getElementsByClassName('needs-validation');
+                            // Loop over them and prevent submission
+                            var validation = Array.prototype.filter.call(forms, function (form) {
+                                form.addEventListener('submit', function (event) {
+                                    if (form.checkValidity() === false) {
+                                        event.preventDefault();
+                                        event.stopPropagation();
+                                    }
+                                    form.classList.add('was-validated');
+                                }, false);
+                            });
+                        }, false);
+                    })();
+                </script>
+            </div>
+        </div>
+    </div>
+</div>
 </body>
 
 </html>
