@@ -12,7 +12,7 @@ Main page
 #### -main.js
 Contains all of the front-end JavaScript
 #
-#### Controller
+### Controller
 ### -server.js
 node.js main server file
 #

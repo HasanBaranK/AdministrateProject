@@ -63,6 +63,7 @@ $(document).ready(function () {
         }).done(function () {
             //delete from table if succesfull
             table.row('.selected').remove().draw(false);
+            enableDisableButtons(true);
         });
 
 
@@ -118,7 +119,7 @@ $(document).ready(function () {
         });
         //delete from table if succesfull
 
-    });
+    })
 
     $('#addOrganizationButton').click(function () {
         //ajax call fill the details Modal

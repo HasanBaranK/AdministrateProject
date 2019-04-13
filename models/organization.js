@@ -22,6 +22,7 @@ module.exports = {
           VALUES (?, ?, ?, ?, ?, ?, ?)`,
                 [OrganizationName, Phone, Email, Address, City, Country, PostCode])
         }else {
+
             return db.run(
                 `INSERT OR REPLACE INTO organizationTable (id,OrganizationName ,Phone ,Email ,Address ,City ,Country ,PostCode)
           VALUES (?, ?, ?, ?, ?, ?, ?, ?)`,
@@ -85,6 +86,7 @@ module.exports = {
                     contact.PostCode = row.postCode;
                     obj.data.push(contact);
                 });
+
                 resolve(obj);
             });
 
@@ -114,6 +116,7 @@ module.exports = {
                     contact.PostCode = row.postCode;
                     obj.data.push(contact);
                 });
+                console.log(obj);
                 resolve(obj);
             });
 

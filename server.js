@@ -98,15 +98,17 @@ app.post('/getContactDetails', function (req, res) {
 
 //Request for adding organization
 app.post('/addOrganization', function (req, res) {
-    organization.addOrganization(db,req.body.id ,req.body.OrganizationName, req.body.Phone, req.body.Email, req.body.Address, req.body.City, req.body.Country, req.body.PostCode);
+    let organizationName = (req.body.OrganizationName).replace(/&amp;/g, '&');
+    organization.addOrganization(db,req.body.id ,organizationName, req.body.Phone, req.body.Email, req.body.Address, req.body.City, req.body.Country, req.body.PostCode);
     //We need to send something back
     res.send("<script> window.location.replace('../');</script>");
 });
 //Request for deleting organization
 app.post('/deleteOrganization', function (req, res) {
-    let id = organization.returnIdOfOrganization(db, req.body.OrganizationName);
+    let organizationName = (req.body.OrganizationName).replace(/&amp;/g, '&');
+    let id = organization.returnIdOfOrganization(db, organizationName);
     id.then(function (Id) {
-        organization.deleteOrganization(db, req.body.OrganizationName);
+        organization.deleteOrganization(db, organizationName);
         organization.deleteAllContactsOfOrganization(db, Id);
 
         res.send("<script> window.location.replace('../');</script>");
@@ -116,7 +118,8 @@ app.post('/deleteOrganization', function (req, res) {
 });
 //Request for getting the details of an organization
 app.post('/detailsOfOrganization', function (req, res) {
-    let promise = organization.detailsOfOrganization(db, req.body.OrganizationName);
+    let organizationName = (req.body.OrganizationName).replace(/&amp;/g, '&');
+    let promise = organization.detailsOfOrganization(db, organizationName);
     promise.then(function (value) {
         res.send(value);
     }, function (error) {
@@ -125,7 +128,8 @@ app.post('/detailsOfOrganization', function (req, res) {
 });
 //Request for getting the id of an organization
 app.post('/getIdOfOrganization', function (req, res) {
-    let promise = organization.returnIdOfOrganization(db, req.body.OrganizationName);
+    let organizationName = (req.body.OrganizationName).replace(/&amp;/g, '&');
+    let promise = organization.returnIdOfOrganization(db, organizationName);
     promise.then(function (value) {
         let obj = {};
         obj.id = value;
