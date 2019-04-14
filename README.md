@@ -12,7 +12,7 @@ Main page
 #### -main.js
 Contains all of the front-end JavaScript
 #
-### Controller
+### Server
 ### -server.js
 node.js main server file
 #
@@ -20,6 +20,7 @@ node.js main server file
 ### Requirements
 #### -Node.js https://nodejs.org/en/download/
 #### -SQLite3 https://www.sqlite.org/index.html
+#### -Internet Connection for CDN of bootstrap and jquery
 ### Installing the modules
 In your terminal, move to directory of the server then do 
 #### "npm install" 

@@ -1,4 +1,4 @@
-
+const http = require('http');
 let express = require('express');
 let bodyParser = require('body-parser');
 const sqlite3 = require('sqlite3').verbose();
@@ -9,7 +9,6 @@ let contact = require('./models/contact.js');
 let organization = require('./models/organization.js');
 
 //port to go
-const http = require('http');
 let port = 12345;
 
 //----------------------------------------------------------------------------
@@ -50,7 +49,7 @@ contact.createContactTable(db);
 app.use(favicon(__dirname + '/AddressBookIcon.ico'));
 
 //-----------------------------------------------------------------------------
-//                             AJAX REQUESTS
+//                            HTTP POST Requests
 //-----------------------------------------------------------------------------
 
 //Request for adding contact
@@ -71,8 +70,7 @@ app.post('/deleteContact', function (req, res) {
 });
 //Request for getting all contact of an organization
 app.post('/getContacts', function (req, res) {
-    let organizationName = (req.body.OrganizationName).replace(/&amp;/g, '&');
-    let id = organization.returnIdOfOrganization(db, organizationName);
+    let id = organization.returnIdOfOrganization(db, req.body.OrganizationName);
     id.then(function (Id) {
         let promise = organization.returnContactsOfOrganization(db, Id);
         promise.then(function (value) {
@@ -98,17 +96,15 @@ app.post('/getContactDetails', function (req, res) {
 
 //Request for adding organization
 app.post('/addOrganization', function (req, res) {
-    let organizationName = (req.body.OrganizationName).replace(/&amp;/g, '&');
-    organization.addOrganization(db,req.body.id ,organizationName, req.body.Phone, req.body.Email, req.body.Address, req.body.City, req.body.Country, req.body.PostCode);
+    organization.addOrganization(db,req.body.id ,req.body.OrganizationName, req.body.Phone, req.body.Email, req.body.Address, req.body.City, req.body.Country, req.body.PostCode);
     //We need to send something back
     res.send("<script> window.location.replace('../');</script>");
 });
 //Request for deleting organization
 app.post('/deleteOrganization', function (req, res) {
-    let organizationName = (req.body.OrganizationName).replace(/&amp;/g, '&');
-    let id = organization.returnIdOfOrganization(db, organizationName);
+    let id = organization.returnIdOfOrganization(db, req.body.OrganizationName);
     id.then(function (Id) {
-        organization.deleteOrganization(db, organizationName);
+        organization.deleteOrganization(db, req.body.OrganizationName);
         organization.deleteAllContactsOfOrganization(db, Id);
 
         res.send("<script> window.location.replace('../');</script>");
@@ -118,8 +114,7 @@ app.post('/deleteOrganization', function (req, res) {
 });
 //Request for getting the details of an organization
 app.post('/detailsOfOrganization', function (req, res) {
-    let organizationName = (req.body.OrganizationName).replace(/&amp;/g, '&');
-    let promise = organization.detailsOfOrganization(db, organizationName);
+    let promise = organization.detailsOfOrganization(db, req.body.OrganizationName);
     promise.then(function (value) {
         res.send(value);
     }, function (error) {
@@ -128,8 +123,7 @@ app.post('/detailsOfOrganization', function (req, res) {
 });
 //Request for getting the id of an organization
 app.post('/getIdOfOrganization', function (req, res) {
-    let organizationName = (req.body.OrganizationName).replace(/&amp;/g, '&');
-    let promise = organization.returnIdOfOrganization(db, organizationName);
+    let promise = organization.returnIdOfOrganization(db, req.body.OrganizationName);
     promise.then(function (value) {
         let obj = {};
         obj.id = value;

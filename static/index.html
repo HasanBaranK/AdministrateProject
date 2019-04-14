@@ -129,7 +129,7 @@
                         <div class="col-md-12 mb-12">
                             <label>Organization</label>
                             <input type="text" class="form-control" name="OrganizationName" id="OrganizationName"
-                                   placeholder="Organization Name" value="test" required>
+                                   placeholder="Organization Name" value="" required>
                             <div class="invalid-feedback">
                                 Please provide a organization name.
                             </div>
@@ -139,13 +139,13 @@
                     <div class="form-row">
                         <div class="col-md-6 mb-6">
                             <label>Phone</label>
-                            <input type="text" class="form-control" name="Phone" id="Phone" placeholder="Phone"
+                            <input type="tel" maxlength="15" pattern="^[0-9-+s()]*$" class="form-control" name="Phone" id="Phone" placeholder="Phone"
                                    value="">
 
                         </div>
                         <div class="col-md-6 mb-6">
                             <label>Mail</label>
-                            <input type="text" class="form-control" name="Email" id="Email" placeholder="E-mail"
+                            <input type="email" class="form-control" name="Email" id="Email" placeholder="E-mail"
                                    value="">
 
                         </div>
@@ -177,7 +177,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button class="btn btn-primary" type="submit">Submit form</button>
+                        <button class="btn btn-primary" type="submit">Submit</button>
                     </div>
                 </form>
 
@@ -241,13 +241,13 @@
                     <div class="form-row">
                         <div class="col-md-6 mb-6">
                             <label>Phone</label>
-                            <input type="text" class="form-control" name="Phone" id="PhoneContact" placeholder="Phone"
+                            <input type="tel" class="form-control" name="Phone" id="PhoneContact" placeholder="Phone"
                                    value="">
 
                         </div>
                         <div class="col-md-6 mb-6">
                             <label>Mail</label>
-                            <input type="text" class="form-control" name="Email" id="EmailContact" placeholder="E-mail"
+                            <input type="email" class="form-control" name="Email" id="EmailContact" placeholder="E-mail"
                                    value="">
 
                         </div>
@@ -281,7 +281,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" id="closeContact" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button id="addContactSubmitButton" class="btn btn-primary" type="submit">Submit form</button>
+                        <button id="addContactSubmitButton" class="btn btn-primary" type="submit">Submit</button>
                     </div>
                 </form>
 

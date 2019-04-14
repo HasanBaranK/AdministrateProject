@@ -1,11 +1,17 @@
 $(document).ready(function () {
 
+    //currently selected organization or contact in table
     let currentSelected = "";
+    //currently selected organization
     let currentOrganisation = "";
+    //currently selected organizations Id
     let organizationId = "";
+    //start from organizations
     let inContacts = false;
+
     let mainTable = $('#organizationTable');
-    //load table
+
+    //load the table of organizations
     let table = mainTable.DataTable({
 
         rowReorder: {
@@ -27,22 +33,24 @@ $(document).ready(function () {
     //select when table is clicked
     mainTable.find('tbody').on('click', 'tr', function () {
         if ($(this).hasClass('selected')) {
-            console.log("Selection deleted");
+            //Clicked on already selected selection is deleted
+            currentSelected = "";
             //disable buttons
             enableDisableButtons(true);
         } else {
-            //enable buttons
+
 
             let $columns = $(this).find('td');
             try {
                 if (inContacts) {
-                    currentSelected = $columns[1].innerHTML;
-
+                    //if we are in contacts get the id of contact which is in the second row
+                    currentSelected = $columns[1].innerText;
                 } else {
-                    currentSelected = $columns[0].innerHTML;
+                    //if we are in organizations get the name of organizations which is in the first row
+                    currentSelected = $columns[0].innerText;
                 }
+                //enable buttons
                 enableDisableButtons(false);
-                console.log(currentSelected);
             } catch {
                 currentSelected = "";
             }
@@ -52,8 +60,10 @@ $(document).ready(function () {
     //---------------------------------------------------------------------------
     //                             Organization Buttons
     //---------------------------------------------------------------------------
+
+    //When user clicks the delete, delete the organization with ajax call
     $('#deleteButton').click(function () {
-        //ajax call
+        //ajax call for deleting
         $.ajax({
             url: "/deleteOrganization",
             type: 'POST',
@@ -61,14 +71,15 @@ $(document).ready(function () {
                 OrganizationName: currentSelected
             },
         }).done(function () {
-            //delete from table if succesfull
+            //remove from table if succesfull
             table.row('.selected').remove().draw(false);
+            //disable the buttons
             enableDisableButtons(true);
         });
 
 
     });
-
+    //When user clicks the details, gets the details with an ajax call and fills the modal with html generated
     $('#detailsButton').click(function () {
         //ajax call fill the details Modal
         $.ajax({
@@ -92,12 +103,11 @@ $(document).ready(function () {
             $("#addDetailsHere").empty();
             $("#addDetailsHere").append(html);
         });
-        //delete from table if succesfull
 
     });
-
+    //When user clicks the edit, gets the details with ajax call and fills the edit modal with values
     $('#editButton').click(function () {
-        //ajax call fill the details Modal
+        //ajax call fill the edit Modal
         $.ajax({
             url: "/detailsOfOrganization",
             type: 'POST',
@@ -117,12 +127,11 @@ $(document).ready(function () {
             $("#PostCode").val(obj.data[0].PostCode);
 
         });
-        //delete from table if succesfull
 
     })
-
+    //When user clicks the add organization, ready the modal by clearing the values and setting the title
     $('#addOrganizationButton').click(function () {
-        //ajax call fill the details Modal
+
         $("#addOrganizationTitle").text("Add Organization");
 
         $("#OrganizationId").val("");
@@ -135,42 +144,29 @@ $(document).ready(function () {
         $("#PostCode").val("");
 
     });
-
-    $('#addContactButton').click(function () {
-        $("#organizationIdContact").val(organizationId);
-        $("#idContact").val("addContact");
-        $("#addContactTitle").text("Add Contact to " + currentOrganisation);
-
-        $("#OrganizationId").val("");
-        $("#NameContact").val("");
-        $("#SurnameContact").val("");
-        $("#PhoneContact").val("");
-        $("#EmailContact").val("");
-        $("#AddressContact").val("");
-        $("#CityContact").val("");
-        $("#CountryContact").val("");
-        $("#PostCodeContact").val("");
-    });
-
+    //When user clicks the go to contacts, refresh the table with a new ajax call and set the title and table
     $('#goToContactsButton').click(function () {
+
         currentOrganisation = currentSelected;
         inContacts = true;
         getOrganizationId();
+
         //Change Buttons and Title
         $('#mainTitle').text("Contacts of " + currentSelected);
         $('#OrganizationButtons').hide();
         $('#ContactsButtons').show();
         //disable buttons
         enableDisableButtons(true);
-        //ajax call to refill table
+        //destroy the table
         mainTable.dataTable().fnDestroy();
+        //add new row for id to the table
         mainTable.find('th').eq(0).after('<th>id</td>');
         mainTable.find('tfoot').find('th').eq(0).after('<th>id</td>');
         mainTable.find('tr').each(function () {
-            $(this).find('td').eq(0).after('<td>new cell added</td>');
+            $(this).find('td').eq(0).after('<td></td>');
 
         });
-
+        //ajax call to refill table
         table = mainTable.DataTable({
             rowReorder: {
                 selector: 'td:nth-child(2)'
@@ -198,29 +194,28 @@ $(document).ready(function () {
     //---------------------------------------------------------------------------
     //                             Contact Buttons
     //---------------------------------------------------------------------------
-    $('#contactForm').submit(function (e) {
-        //prevent submitting through form
-        e.preventDefault();
+    //When user clicks the add contacts, Makes the modal ready for adding contact by cleaning and changing the title
+    $('#addContactButton').click(function () {
 
-        let name = $("#NameContact").val();
-        if (name.trim() !== "") {
-            $.ajax({
-                url: '/addContact',
-                type: 'post',
-                data: $('#contactForm').serialize(),
-                success: function () {
-                    mainTable.DataTable().ajax.reload();
-                }
-            });
-            $("#closeContact").click()
+        $("#organizationIdContact").val(organizationId);
+        $("#idContact").val("addContact");
+        $("#addContactTitle").text("Add Contact to " + currentOrganisation);
 
-        }
+        $("#OrganizationId").val("");
+        $("#NameContact").val("");
+        $("#SurnameContact").val("");
+        $("#PhoneContact").val("");
+        $("#EmailContact").val("");
+        $("#AddressContact").val("");
+        $("#CityContact").val("");
+        $("#CountryContact").val("");
+        $("#PostCodeContact").val("");
     });
-
+    //When user clicks go back, refresh the page
     $('#goBackButton').click(function () {
         location.reload();
     });
-
+    //When user clicks the details, gets the details with an ajax call and fills the modal with html generated
     $('#detailsContactButton').click(function () {
         //ajax call fill the details Modal
         $.ajax({
@@ -250,7 +245,7 @@ $(document).ready(function () {
         //delete from table if succesfull
 
     });
-
+    //When user clicks the edit, gets the details with ajax call and fills the edit modal with values
     $('#editContactButton').click(function () {
         //ajax call fill the details Modal
         $.ajax({
@@ -278,7 +273,7 @@ $(document).ready(function () {
         //delete from table if succesfull
 
     });
-
+    //When user clicks the delete, delete the contact with ajax call
     $('#deleteContactButton').click(function () {
         $.ajax({
             url: "/deleteContact",
@@ -288,9 +283,31 @@ $(document).ready(function () {
             },
         }).done(function () {
             table.row('.selected').remove().draw(false);
+            //disable the buttons
+            enableDisableButtons(true);
         });
     });
+    //When the contact form submitted prevent submission through form, serialize the form and send it through ajax request
+    $('#contactForm').submit(function (e) {
+        //prevent submitting through form
+        e.preventDefault();
+        //check if the name is empty
+        let name = $("#NameContact").val();
+        if (name.trim() !== "") {
+            //ajax request to add the contact
+            $.ajax({
+                url: '/addContact',
+                type: 'post',
+                data: $('#contactForm').serialize(),
+                success: function () {
+                    mainTable.DataTable().ajax.reload();
+                    $("#closeContact").click()
+                }
+            });
 
+        }
+    });
+    //if true disables the buttons if false enables the buttons
     function enableDisableButtons(disable) {
 
         $("#deleteButton").prop('disabled', disable);
@@ -302,7 +319,7 @@ $(document).ready(function () {
         $("#editContactButton").prop('disabled', disable);
         $("#detailsContactButton").prop('disabled', disable);
     }
-
+    //sets the Id of the organization with an ajax call
     function getOrganizationId() {
         $.ajax({
             url: "/getIdOfOrganization",
