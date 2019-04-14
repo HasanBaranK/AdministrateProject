@@ -71,8 +71,8 @@ app.post('/deleteContact', function (req, res) {
 });
 //Request for getting all contact of an organization
 app.post('/getContacts', function (req, res) {
-
-    let id = organization.returnIdOfOrganization(db, req.body.OrganizationName);
+    let organizationName = (req.body.OrganizationName).replace(/&amp;/g, '&');
+    let id = organization.returnIdOfOrganization(db, organizationName);
     id.then(function (Id) {
         let promise = organization.returnContactsOfOrganization(db, Id);
         promise.then(function (value) {

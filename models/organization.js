@@ -22,7 +22,6 @@ module.exports = {
           VALUES (?, ?, ?, ?, ?, ?, ?)`,
                 [OrganizationName, Phone, Email, Address, City, Country, PostCode])
         }else {
-
             return db.run(
                 `INSERT OR REPLACE INTO organizationTable (id,OrganizationName ,Phone ,Email ,Address ,City ,Country ,PostCode)
           VALUES (?, ?, ?, ?, ?, ?, ?, ?)`,
