@@ -27,3 +27,5 @@ In your terminal, move to directory of the server then do
 ### Starting the Programme
 In your terminal, move to directory of the server then do
 #### "node server"
+#
+#### Additional information and Design Decisions can be found at Report.pdf
