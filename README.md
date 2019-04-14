@@ -27,5 +27,7 @@ In your terminal, move to directory of the server then do
 ### Starting the Programme
 In your terminal, move to directory of the server then do
 #### "node server"
+Then go to
+#### http://localhost:12345/
 #
 #### Additional information and Design Decisions can be found at Report.pdf
